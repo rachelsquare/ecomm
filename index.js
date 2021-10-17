@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
     `);
 });
 
-
+// post request that handles account creation
 app.post('/', (req, res) => {
     console.log(req.body);
     // get access to email, password, passwordConfirmation    
