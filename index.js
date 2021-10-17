@@ -18,8 +18,9 @@ app.get('/', (req, res) => {
     `);
 });
 
-app.post('/', (req, res) => {
-    // get access to email, password, passwordConfirmation
+// middleware function to parse email, password, passwordConfirmation data
+const bodyParser = (req, res, next) => {
+    if (req.method === 'POST') {
     req.on('data', data => {
         const parsed = data.toString('utf8').split('&');
         const formData = {};
@@ -27,8 +28,20 @@ app.post('/', (req, res) => {
             const [key, value] = pair.split('=');
             formData[key] = value;
         }
-        console.log(formData);
-    });
+        
+        req.body = formData;
+        next();
+    
+     });
+    } else {
+        next();
+    }
+}
+
+
+app.post('/', bodyParser, (req, res) => {
+    console.log(req.body);
+    // get access to email, password, passwordConfirmation    
     res.send('Account created!!!');
 });
 
