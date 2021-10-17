@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+app.use(bodyParser.urlencoded({extended: true}));
+
 // route handler
 // req: object to interact with to receive info from user
 // res: object to interact with to send info to user
@@ -20,7 +22,7 @@ app.get('/', (req, res) => {
 });
 
 
-app.post('/', bodyParser.urlencoded({extended: true}), (req, res) => {
+app.post('/', (req, res) => {
     console.log(req.body);
     // get access to email, password, passwordConfirmation    
     res.send('Account created!!!');
